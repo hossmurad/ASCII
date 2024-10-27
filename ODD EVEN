@@ -1,0 +1,46 @@
+.MODEL SMALL
+.STACK 100H
+.DATA 
+ MSG1 DB "ENTER A NUMBER : $" 
+ MSG2 DB "  INPUT NUMBER IS EVEN : $"
+ MSG3 DB "  INPUT NUMBER IS ODD : $"
+ .CODE
+  MAIN PROC
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    MOV AH,9
+    LEA DX,MSG1
+    INT 21H 
+    
+    ;INPUT A  NUMBER
+    
+    MOV AH,1
+    INT 21H
+    SUB AL,48
+    MOV BL,AL
+    
+    AND BL,0001H
+    
+    CMP BL,0H
+    JE EVEN
+    JNE ODD
+    
+    EVEN:
+    MOV AH,09H
+    LEA DX,MSG2
+    INT 21H
+    JMP EXIT
+    
+    ODD: 
+    MOV AH,09H
+    LEA DX,MSG3
+    INT 21H
+    JMP EXIT
+    
+   EXIT:
+   MOV AH,4CH
+   INT 21H
+   
+   MAIN ENDP
+  END MAIN
