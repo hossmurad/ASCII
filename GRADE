@@ -1,0 +1,59 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+    MSG1 DB "ENTER A NUMBER : $"
+    MSG2 DB "GRADE A+ $"
+    MSG3 DB "GRADE B+ $"
+    MSG4 DB "GRADE C+ $"
+.CODE
+  MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX 
+      ;OUTPUT
+    MOV AH, 9
+    LEA DX, MSG1 
+    INT 21H 
+      ;INPUT
+    MOV AH, 1  
+    INT 21H 
+    ;MSG1
+    CMP AL, 48
+    JE DISPLAY_A
+    CMP AL, 51
+    JLE DISPLAY_A 
+    ;MSG 2
+    CMP AL, 52
+    JE DISPLAY_B
+    CMP AL, 54
+    JLE DISPLAY_B 
+    ;MSG 3
+    CMP AL,55 
+    JE DISPLAY_C
+    CMP AL, 57
+    JLE DISPLAY_C 
+    
+    JMP EXIT 
+    
+DISPLAY_A:
+    MOV AH, 9
+    LEA DX, MSG2
+    INT 21H
+    JMP EXIT 
+    
+DISPLAY_B:
+    MOV AH, 9
+    LEA DX, MSG3
+    INT 21H
+    JMP EXIT  
+    
+DISPLAY_C:
+    MOV AH, 9
+    LEA DX, MSG4
+    INT 21H
+    JMP EXIT 
+    
+EXIT:
+    MOV AH, 4CH
+    INT 21H
+  MAIN ENDP
+END MAIN
