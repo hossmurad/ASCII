@@ -48,6 +48,7 @@
     INT 21H
       
     MOV AX,MAX
+    ;add ax, 30h
     MOV DX,AX
     MOV AH,2
     INT 21H  
