@@ -1,0 +1,40 @@
+.MODEL SMALL 
+.STACK 100H
+
+.DATA
+    SUM DW ?
+    MSG DB "SUM: $"
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    MOV AH, 1
+    INT 21H
+    SUB AL, '0'
+    MOV BL, AL
+    
+    MOV AH, 1
+    INT 21H
+    SUB AL, '0'
+    MOV BH, AL
+    
+    MOV AL, BL
+    ADD AL, BH
+    MOV SUM, AX
+    
+    MOV AH, 9
+    LEA DX, MSG
+    INT 21H
+    
+    MOV AX, SUM
+    ADD AL, '0'
+    MOV DL, AL
+    MOV AH, 2
+    INT 21H
+    
+    MOV AH, 4CH
+    INT 21H 
+MAIN ENDP
+END MAIN
