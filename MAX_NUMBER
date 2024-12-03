@@ -1,0 +1,61 @@
+.MODEL SMALL
+.STACK 100H
+.DATA
+ NUM1 DW ?
+ NUM2 DW ?
+ NUM3 DW ?
+ MAX DW ?
+ MESSAGE DB "THE MAXIUM NUMBER IS : $"       
+
+ .CODE 
+ MAIN PROC
+   MOV AX,@DATA
+   MOV DS,AX 
+    
+    ;INPUT NUM1
+    MOV AH,1
+    INT 21H
+   ; SUB AL,30H
+    MOV NUM1,AX
+    
+    ;INPUT NUM2
+    MOV AH,1
+    INT 21H
+   ; SUB AL,30H
+    MOV NUM2,AX
+    
+    ;INPUT NUM3
+    MOV AH,1
+    INT 21H
+  ;  SUB AL,30H
+    MOV NUM3,AX  
+    
+    MOV AX,NUM1
+    CMP AX,NUM2
+    JGE CHECK_NUM3
+    MOV AX,NUM2
+    
+    CHECK_NUM3:
+      CMP AX,NUM3
+      JGE PRINT_MAX
+      MOV AX,NUM3
+      
+    PRINT_MAX:
+      MOV MAX,AX
+      
+    MOV AH,9
+    LEA DX,MESSAGE
+    INT 21H
+      
+    MOV AX,MAX
+    MOV DX,AX
+    MOV AH,2
+    INT 21H  
+    
+    
+    
+    
+    
+   
+   MAIN ENDP
+ END MAIN
